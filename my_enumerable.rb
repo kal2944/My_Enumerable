@@ -1,17 +1,19 @@
 module MyEnumerable
     def all?(&block)
-      @list.each { |args| return false unless block.call(args) }
-      true
+      result = true
+      each { |e| result = false unless block.call(e) }
+      result
     end
   
     def any?(&block)
-      @list.each { |args| return true if block.call(args) }
-      false
+      result = false
+      each { |e| result = true if block.call(e) }
+      result
     end
   
-    def filter(&block)
-      arr = []
-      @list.each { |args| arr << args if block.call(args) }
-      arr
+    def filter?(&block)
+      result = []
+      each { |e| result << e if block.call(e) }
+      result
     end
   end
